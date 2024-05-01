@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a26c3d43162264cb17684c385f7fb9, type: 3}
+  m_Name: Villager Behavior
+  m_EditorClassIdentifier: 
+  villagerPrefab: {fileID: 1437691418910702630, guid: a6c35f64047bcde41a4f3539be04c52c, type: 3}
+  walkAreaSize: 20
+  minPauseDuration: 1
+  maxPauseDuration: 10
+  walkSpeed: 10
+  idleAnimation: {fileID: 7400000, guid: 8aef4f9e8fbc26549a5be8e86d82a605, type: 2}
+  walkAnimation: {fileID: 7400000, guid: e73609154e3cb714ba33a0dac479d09b, type: 2}

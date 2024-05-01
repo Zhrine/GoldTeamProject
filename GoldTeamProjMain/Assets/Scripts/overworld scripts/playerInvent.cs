@@ -1,15 +1,53 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu]
 
 public class playerInvent : ScriptableObject
 {
-   public int fuel, scrap, wood,timer;
-
-   //simplify the code for changing vals, can i have one funtion handel all of them?
-      //maybe a funtion that accepts a string and then read it as (name,value)
-
-      public void addThings(int amt, string type)
+   public int fuel, scrap, wood;
+   public float timer=100;
+   public Dictionary<string, bool> checkpoints=new Dictionary<string, bool>();//keep the unessesary new section, else it breaks things
+   public List<string> villagers;
+   
+   public void Awake()
+   {
+      try //this stop doubles
       {
+         checkpoints.Add("town",true);
+         checkpoints.Add("plains",true);
+         checkpoints.Add("forest",false);
+         checkpoints.Add("junk",false);
+         checkpoints.Add("cave",false);
+      }
+      catch (Exception e)//will print things if its broken
+      {
+         Console.WriteLine("player inventory dictionary broken"+ e);
+         throw;
+      }
+   }
+   
+   //check if the region has been unlocked for fast travel
+   public bool validTravelCheck(string region) 
+   {
+      foreach (var spot in checkpoints)
+      {
+         if (spot.Key==region)
+         {
+            return spot.Value;
+         }
+      }
+      return false;
+   }
+
+   //turn on checkpoint of given region
+   public void activateRegion(string thisOne)
+   {
+      checkpoints[thisOne] = true;
+   }
+   //when you get a drop add value to list
+   public void addThings(string type, int amt)
+   {
          switch (type)
          {
             case "fuel":
@@ -26,26 +64,23 @@ public class playerInvent : ScriptableObject
                break;
          }
       }
-      public void reset(int amt, string type)
+   //resets all values to default
+   public void FullReset()
       {
-         switch (type)
-         {
-            case "fuel":
-               fuel = amt;
-               break;
-            case "scrap":
-               scrap = amt;
-               break;
-            case "wood":
-               wood = amt;
-               break;
-            case "timer":
-               timer = amt;
-               break;
-         }
+         fuel = 0;
+         scrap = 0; 
+         wood = 0; 
+         timer = 100;
+         checkpoints["town"] = true;
+         checkpoints["plains"] = false;
+         checkpoints["forest"] = false;
+         checkpoints["junk"] = false;
+         checkpoints["cave"] = false;
+         villagers.Clear();
       }
 
-   public string reportRes(string what)
+   //reports the chosen value as a string, for display
+   public string reportVal(string what)
    {
       string value = null;//local variable so we can respond with something
       switch (what)
@@ -65,5 +100,26 @@ public class playerInvent : ScriptableObject
       }
       return value;
    }
+
+   //when you save someone add them to the saved list
+   public void savedVillager(string name)
+   {
+      if (!villagers.Contains(name))//if they are not already in the list
+      {
+         villagers.Add(name);
+      }
+   }
    
+   //check if we have already saved this villager
+   public bool areTheyHere(string name)
+   {
+      if (villagers.Contains(name))
+      {
+         return true;
+      }
+      else
+      {
+         return false;
+      }
+   }
 }

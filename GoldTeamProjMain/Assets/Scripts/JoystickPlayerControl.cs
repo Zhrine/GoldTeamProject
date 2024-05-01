@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -45,10 +45,10 @@ public class JoystickPlayerControl : MonoBehaviour
         {
             isIdleAnimStart = false;
             StopEvent.Invoke();
-            print("Stopped!");
+            
         }
         
-        }
+    }
 
     public void CallToggleMovementOn()
     {

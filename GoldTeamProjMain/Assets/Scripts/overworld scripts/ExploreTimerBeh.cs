@@ -8,6 +8,7 @@ public class ExploreTimerBeh : MonoBehaviour
     public playerInvent invent;
     public int StartVal=100;
     public UnityEvent timesUp;
+    public IntData plrHealth;
     
     private HealthBar display;
     private WaitForSeconds delay;
@@ -28,12 +29,16 @@ public class ExploreTimerBeh : MonoBehaviour
 
     IEnumerator Countdown()
     {
-        while (invent.timer>0)
+        while (invent.timer>=0)
         {
             invent.timer -= 1;
             display.updateVal(invent.timer);
-            yield return delay;
+            yield return delay=new WaitForSeconds(1);
         }
-        timesUp.Invoke();
+        while (plrHealth.value<=0)
+        {
+            timesUp.Invoke(); 
+        }
+        
     }
 }
